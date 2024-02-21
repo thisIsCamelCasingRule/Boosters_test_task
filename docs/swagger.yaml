@@ -1,0 +1,124 @@
+definitions:
+  models.CreatePostRequest:
+    properties:
+      content:
+        type: string
+      title:
+        type: string
+    type: object
+  models.Post:
+    properties:
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.PutPostRequest:
+    properties:
+      content:
+        type: string
+      title:
+        type: string
+    type: object
+host: 127.0.0.1:8080
+info:
+  contact: {}
+  description: A posts data management service API in Go.
+  title: Posts service
+  version: "1.0"
+paths:
+  /posts:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: number
+      summary: get all posts
+      tags:
+      - posts
+    post:
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: create post
+      tags:
+      - posts
+  /posts/{id}:
+    delete:
+      parameters:
+      - description: post id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+      summary: delete post by id
+      tags:
+      - posts
+    get:
+      parameters:
+      - description: post id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+      summary: get post by id
+      tags:
+      - posts
+    put:
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.PutPostRequest'
+      - description: post id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+      summary: put post by id
+      tags:
+      - posts
+swagger: "2.0"
